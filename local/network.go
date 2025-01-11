@@ -680,11 +680,11 @@ func (ln *localNetwork) addNode(nodeConfig node.Config) (node.Node, error) {
 				return nil, err
 			}
 		} else {
-			key, err := bls.NewSecretKey()
+			key, err := bls.NewSigner()
 			if err != nil {
 				return nil, fmt.Errorf("couldn't generate new signing key: %w", err)
 			}
-			keyBytes = bls.SecretKeyToBytes(key)
+			keyBytes = key.ToBytes()
 		}
 		encodedKey := base64.StdEncoding.EncodeToString(keyBytes)
 		nodeConfig.StakingSigningKey = encodedKey
